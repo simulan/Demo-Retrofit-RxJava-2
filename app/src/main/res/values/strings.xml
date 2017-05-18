@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">US Elections</string>
+    <string name="ElectionNameHeaderText"><u><b>Election</b></u></string>
+    <string name="ElectionDayHeaderText"><u><b>Date</b></u></string>
+    <string name="ElectionDivisionHeaderText"><u><b>Division</b></u></string>
+    <string name="OfficialPhotoHeaderText">Photo</string>
+    <string name="OfficialNameHeaderText">Name</string>
+    <string name="OfficialPartyHeaderText">Party</string>
+</resources>

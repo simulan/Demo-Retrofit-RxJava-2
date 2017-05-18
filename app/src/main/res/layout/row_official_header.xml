@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                      android:layout_width="match_parent"
+                                      android:layout_height="wrap_content"
+                                      grid:columnCount="3"
+                                      xmlns:grid="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.AppCompatTextView grid:layout_columnWeight="1"
+                                                 android:layout_width="0dp"
+                                                 android:layout_height="40dp"
+                                                 android:text="@string/OfficialPhotoHeaderText"
+                                                 android:gravity="center"
+                                                 android:id="@+id/txtvOfficialPhoto"  />
+    <android.support.v7.widget.AppCompatTextView grid:layout_columnWeight="1"
+                                                 android:layout_width="0dp"
+                                                 android:layout_height="40dp"
+                                                 android:text="@string/OfficialNameHeaderText"
+                                                 android:gravity="center"
+                                                 android:id="@+id/txtvOfficialName"  />
+    <android.support.v7.widget.AppCompatTextView grid:layout_columnWeight="1"
+                                                 android:layout_height="40dp"
+                                                 android:layout_width="0dp"
+                                                 android:text="@string/OfficialPartyHeaderText"
+                                                 android:gravity="center"
+                                                 android:id="@+id/txtvOfficialParty" />
+</android.support.v7.widget.GridLayout>

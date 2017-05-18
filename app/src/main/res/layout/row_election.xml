@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:grid="http://schemas.android.com/apk/res-auto"
+    grid:columnCount="3" android:layout_width="match_parent"
+    android:layout_height="50dp" >
+
+    <android.support.v7.widget.AppCompatTextView grid:layout_columnWeight="1" android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:text="VIP election day"
+        android:gravity="center"
+        android:id="@+id/txtvElectionName"  />
+    <android.support.v7.widget.AppCompatTextView grid:layout_columnWeight="1" android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:text="2012-12-30"
+        android:gravity="center"
+        android:id="@+id/txtvElectionDay" />
+    <android.support.v7.widget.AppCompatTextView grid:layout_columnWeight="1" android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:text="Utah"
+        android:gravity="center"
+        android:id="@+id/txtvElectionDivision" />
+
+</android.support.v7.widget.GridLayout>
