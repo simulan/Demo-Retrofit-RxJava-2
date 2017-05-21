@@ -6,12 +6,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import be.sanderdebleecker.uselections.controller.api.CivicService;
-import be.sanderdebleecker.uselections.controller.api.ServiceFactory;
-import be.sanderdebleecker.uselections.model.data.envelope.OfficialsEnvelope;
-import be.sanderdebleecker.uselections.model.view.ElectionVM;
-import be.sanderdebleecker.uselections.model.view.OfficialVM;
-import be.sanderdebleecker.uselections.view.adapters.OfficialsAdapter;
+import be.sanderdebleecker.uselections.api.CivicService;
+import be.sanderdebleecker.uselections.api.ServiceFactory;
+import be.sanderdebleecker.uselections.mvp.model.data.envelope.OfficialsEnvelope;
+import be.sanderdebleecker.uselections.mvp.model.view.ElectionVM;
+import be.sanderdebleecker.uselections.mvp.model.view.OfficialVM;
+import be.sanderdebleecker.uselections.mvp.view.adapters.OfficialsAdapter;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
