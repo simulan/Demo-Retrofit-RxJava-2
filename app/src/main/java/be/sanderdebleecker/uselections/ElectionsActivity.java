@@ -37,11 +37,7 @@ public class ElectionsActivity extends BaseActivity implements ElectionsView {
         super.onViewReady(savedInstanceState, intent);
         initializeAdapter();
         mPresenter.getElections();
-        // Will Move To Presenter
-        getPermissions();
-        if (hasInternetPermission) load();
     }
-
     private void initializeAdapter() {
         mElectionsAdapter = new ElectionsAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -54,12 +50,14 @@ public class ElectionsActivity extends BaseActivity implements ElectionsView {
     protected int getContentView () {
         return R.layout.activity_elections;
     }
+
     // recycler delegate
     public void onListClick (ElectionVM electionVM) {
         Intent intent = new Intent(getBaseContext(), OfficialsActivity.class);
         intent.putExtra(EXTRA_ELECTION, electionVM);
         startActivity(intent);
     }
+
     // interface ElectionsView
     @Override
     public BaseActivity getViewActivity () {
@@ -80,27 +78,8 @@ public class ElectionsActivity extends BaseActivity implements ElectionsView {
     @Override
     public void onShowToast (String message) {
     }
-    //Permissions
-    protected void getPermissions () {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            String[] PERMISSIONS = {Manifest.permission.INTERNET};
-            if (!hasPermissions(this, PERMISSIONS)) {
-                ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_INTERNET);
-            } else {
-                hasInternetPermission = true;
-            }
-        }
-    }
-    public boolean hasPermissions (Context context, String... permissions) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+
+    // presenter handles permissions
     public void onRequestPermissionsResult (int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         mPresenter.onPermissionsResult(requestCode,permissions,grantResults);
     }
