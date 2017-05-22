@@ -13,11 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.sanderdebleecker.uselections.R;
-import be.sanderdebleecker.uselections.mvp.model.data.envelope.OfficialsEnvelope;
 import be.sanderdebleecker.uselections.mvp.model.view.OfficialVM;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 
@@ -25,7 +23,7 @@ import io.reactivex.subjects.PublishSubject;
  * Adapter for Officials
  * Created by Sander De Bleecker on 12/05/2017.
  */
-public class OfficialsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Observer<OfficialsEnvelope> {
+public class OfficialsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     private final PublishSubject<OfficialVM> onClickOfficial = PublishSubject.create();
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -37,25 +35,16 @@ public class OfficialsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mOfficials = new ArrayList<>();
         mContext = context;
     }
-    @Override
-    public void onSubscribe (Disposable disposable) {
-        this.mDisposable = disposable;
-    }
-    @Override
-    public void onNext (OfficialsEnvelope officialsEnvelope) {
-        mOfficials = officialsEnvelope.getOfficials();
+    public void add(List<OfficialVM> officials) {
+        mOfficials = officials;
         notifyDataSetChanged();
     }
-    @Override
-    public void onError (Throwable e) {
-        // todo: error detection
-        System.out.println(e.getMessage());
-    }
-    @Override
-    public void onComplete () {
-        mDisposable.dispose();
+    public void clear() {
+        mOfficials.clear();
+        notifyDataSetChanged();
     }
 
+    //interface RecyclerView.ViewHolder
     private class VHOfficial extends RecyclerView.ViewHolder {
         CircleImageView cimgvOfficialPhoto;
         TextView txtvOfficialName;
@@ -68,14 +57,13 @@ public class OfficialsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             txtvOfficialParty = (TextView) itemView.findViewById(R.id.txtvOfficialParty);
         }
     }
-
     private class VHHeader extends RecyclerView.ViewHolder {
         VHHeader (View itemView) {
             super(itemView);
         }
     }
 
-
+    //interface RecyclerView
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM) {
@@ -87,7 +75,6 @@ public class OfficialsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
         throw new RuntimeException("there is no type that matches " + viewType + " +.");
     }
-
     @Override
     public void onBindViewHolder (RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof VHOfficial) {
@@ -99,15 +86,10 @@ public class OfficialsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             officialViewHolder.itemView.setOnClickListener(l -> onClickOfficial.onNext(official));
         }
     }
-
-    public Observable<OfficialVM> getClickObservable () {
-        return onClickOfficial;
+    @Override
+    public int getItemCount () {
+        return mOfficials.size()+ 1;
     }
-
-    private OfficialVM getItem (int pos) {
-        return mOfficials.get(pos - 1);
-    }
-
     @Override
     public int getItemViewType (int position) {
         if (isPositionHeader(position))
@@ -115,13 +97,18 @@ public class OfficialsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return TYPE_ITEM;
     }
 
+    //observable event
+    public Observable<OfficialVM> getClickObservable () {
+        return onClickOfficial;
+    }
+
+    //misc
+    private OfficialVM getItem (int pos) {
+        return mOfficials.get(pos - 1);
+    }
     private boolean isPositionHeader (int position) {
         return position == 0;
     }
 
-    @Override
-    public int getItemCount () {
-        return mOfficials.size()+ 1;
-    }
 
 }

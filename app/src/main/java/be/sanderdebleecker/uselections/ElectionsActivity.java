@@ -1,13 +1,8 @@
 package be.sanderdebleecker.uselections;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -15,15 +10,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import be.sanderdebleecker.uselections.api.CivicService;
-import be.sanderdebleecker.uselections.api.ServiceFactory;
 import be.sanderdebleecker.uselections.mvp.model.view.ElectionVM;
 import be.sanderdebleecker.uselections.mvp.presenter.ElectionsPresenter;
 import be.sanderdebleecker.uselections.mvp.view.ElectionsView;
 import be.sanderdebleecker.uselections.mvp.view.adapters.ElectionsAdapter;
 import butterknife.BindView;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 
 public class ElectionsActivity extends BaseActivity implements ElectionsView {

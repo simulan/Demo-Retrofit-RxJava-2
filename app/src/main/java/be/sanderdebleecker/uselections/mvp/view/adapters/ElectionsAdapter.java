@@ -10,10 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.sanderdebleecker.uselections.R;
-import be.sanderdebleecker.uselections.mvp.model.data.envelope.ElectionsEnvelope;
 import be.sanderdebleecker.uselections.mvp.model.view.ElectionVM;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 
@@ -28,7 +26,7 @@ import io.reactivex.subjects.PublishSubject;
 //todo connectionFailure snackbar notification
 //todo empty list decorator
 
-public class ElectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Observer<ElectionsEnvelope> {
+public class ElectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final PublishSubject<ElectionVM> onClickElection = PublishSubject.create();
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -38,29 +36,16 @@ public class ElectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public ElectionsAdapter () {
         elections = new ArrayList<>();
     }
-
-    @Override
-    public void onSubscribe (Disposable disposable) {
-        this.disposable = disposable;
+    public void add (List<ElectionVM> elections) {
+        this.elections = elections;
+        notifyDataSetChanged();
     }
-
-    @Override
-    public void onNext (ElectionsEnvelope electionsEnvelope) {
-        elections = electionsEnvelope.getElections();
+    public void clear () {
+        this.elections.clear();
         notifyDataSetChanged();
     }
 
-    @Override
-    public void onError (Throwable e) {
-        //todo: meaningful error
-        System.out.println(e.getMessage());
-    }
-
-    @Override
-    public void onComplete () {
-        disposable.dispose();
-    }
-
+    //interface RecyclerView.ViewHolder
     private class VHElection extends RecyclerView.ViewHolder {
         TextView txtvElectionName;
         TextView txtvElectionDay;
@@ -73,13 +58,13 @@ public class ElectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             txtvElectionDivision = (TextView) itemView.findViewById(R.id.txtvElectionDivision);
         }
     }
-
     private class VHHeader extends RecyclerView.ViewHolder {
         VHHeader (View itemView) {
             super(itemView);
         }
     }
 
+    //interface RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM) {
             //inflate your layout and pass it to view holder
@@ -92,7 +77,6 @@ public class ElectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
         throw new RuntimeException("there is no type that matches " + viewType + " +.");
     }
-
     @Override
     public void onBindViewHolder (RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof VHElection) {
@@ -109,27 +93,26 @@ public class ElectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             });
         }
     }
-
-    @Override
-    public int getItemCount () {
-        return (elections == null) ? 0 : (elections.size() + 1);
-    }
-
     @Override
     public int getItemViewType (int position) {
         if (isPositionHeader(position))
             return TYPE_HEADER;
         return TYPE_ITEM;
     }
+    @Override
+    public int getItemCount () {
+        return (elections == null) ? 0 : (elections.size() + 1);
+    }
 
+    //observable event
     public Observable<ElectionVM> getClickObservable () {
         return onClickElection;
     }
 
+    //misc methods
     private boolean isPositionHeader (int position) {
         return position == 0;
     }
-
     private ElectionVM getItem (int position) {
         return elections.size()==0 ? null : elections.get(position - 1);
     }
