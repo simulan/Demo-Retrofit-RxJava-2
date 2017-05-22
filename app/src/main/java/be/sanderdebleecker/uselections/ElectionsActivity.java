@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -56,18 +57,23 @@ public class ElectionsActivity extends BaseActivity implements ElectionsView {
     }
     @Override
     public void onElectionsLoaded (List<ElectionVM> elections) {
+        mElectionsAdapter.add(elections);
     }
     @Override
     public void onClearItems () {
+        mElectionsAdapter.clear();
     }
     @Override
     public void onShowDialog (String message) {
+        showDialog(message);
     }
     @Override
     public void onHideDialog () {
+        hideDialog();
     }
     @Override
     public void onShowToast (String message) {
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     }
 
     // presenter handles permissions

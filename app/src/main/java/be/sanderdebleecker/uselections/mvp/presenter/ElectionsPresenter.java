@@ -37,9 +37,10 @@ public class ElectionsPresenter extends BasePresenter<ElectionsView> implements 
         if(hasInternetPermission) {
             getView().onShowDialog("Loading cakes...");
             subscribe(mApiService.listElections(),this);
+        }else{
+            getView().onShowToast("Please configure the app's permissions to allow internet");
         }
     }
-
     //interface Observer
     @Override
     public void onSubscribe (Disposable d) {

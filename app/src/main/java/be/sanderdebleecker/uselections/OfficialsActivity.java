@@ -10,19 +10,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import be.sanderdebleecker.uselections.api.CivicService;
-import be.sanderdebleecker.uselections.api.ServiceFactory;
-import be.sanderdebleecker.uselections.mvp.model.data.envelope.OfficialsEnvelope;
 import be.sanderdebleecker.uselections.mvp.model.view.ElectionVM;
 import be.sanderdebleecker.uselections.mvp.model.view.OfficialVM;
 import be.sanderdebleecker.uselections.mvp.presenter.OfficialsPresenter;
 import be.sanderdebleecker.uselections.mvp.view.OfficialsView;
 import be.sanderdebleecker.uselections.mvp.view.adapters.OfficialsAdapter;
 import butterknife.BindView;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Activity displaying Officials
@@ -32,6 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 public class OfficialsActivity extends BaseActivity implements OfficialsView {
     @BindView(R.id.recyclerOfficials) RecyclerView recyclerView;
     @Inject protected OfficialsPresenter mPresenter;
+    OfficialsAdapter mAdapter;
 
     @Override
     protected void onViewReady (Bundle savedInstanceState, Intent intent) {
@@ -41,10 +35,10 @@ public class OfficialsActivity extends BaseActivity implements OfficialsView {
         mPresenter.getOfficials(electionVM.getOcdDivisionId());
     }
     private void initializeAdapter() {
-        OfficialsAdapter adapter = new OfficialsAdapter(this);
+        mAdapter = new OfficialsAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        adapter.getClickObservable().subscribe(this::onOfficialsListClick);
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.getClickObservable().subscribe(this::onOfficialsListClick);
     }
 
     //interface BaseActivity
@@ -55,10 +49,12 @@ public class OfficialsActivity extends BaseActivity implements OfficialsView {
 
     //Interface ElectionsView
     @Override
-    public void onOfficialsLoaded (List<OfficialVM> elections) {
+    public void onOfficialsLoaded (List<OfficialVM> officials) {
+        mAdapter.add(officials);
     }
     @Override
     public void onClearItems () {
+        mAdapter.clear();
     }
     @Override
     public BaseActivity getViewActivity () {
@@ -66,12 +62,15 @@ public class OfficialsActivity extends BaseActivity implements OfficialsView {
     }
     @Override
     public void onShowDialog (String message) {
+        showDialog(message);
     }
     @Override
     public void onHideDialog () {
+        hideDialog();
     }
     @Override
     public void onShowToast (String message) {
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     }
 
     //recycler delegate
