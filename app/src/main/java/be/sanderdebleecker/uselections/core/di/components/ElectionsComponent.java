@@ -7,7 +7,7 @@ import be.sanderdebleecker.uselections.core.di.modules.ElectionsModule;
 import dagger.Component;
 
 /**
- * @author Sander De Bleecker
+ * @author simulan
  * @version 1.0.0
  * @since 21/05/2017
  */

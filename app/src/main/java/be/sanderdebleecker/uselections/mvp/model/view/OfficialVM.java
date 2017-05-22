@@ -2,7 +2,7 @@ package be.sanderdebleecker.uselections.mvp.model.view;
 
 /**
  * Viewable representation of Official
- * Created by Sander De Bleecker on 12/05/2017.
+ * Created by simulan on 12/05/2017.
  */
 
 public class OfficialVM {

@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /**
- * Created by Sander De Bleecker on 08/05/2017.
+ * Created by simulan on 08/05/2017.
  * Uses observable as events, inner observables as collections
  * Outer observable thus gets instantly disposed from memory after API call completion
  *

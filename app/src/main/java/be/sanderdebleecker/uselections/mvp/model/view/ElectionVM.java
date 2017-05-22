@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 /**
  * Model for returned data from Google Civic Api
- * Created by Sander De Bleecker on 08/05/2017.
+ * Created by simulan on 08/05/2017.
  */
 public class ElectionVM implements Parcelable {
     private long id;

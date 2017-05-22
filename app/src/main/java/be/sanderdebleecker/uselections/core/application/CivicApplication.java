@@ -7,7 +7,7 @@ import be.sanderdebleecker.uselections.core.di.components.DaggerApplicationCompo
 import be.sanderdebleecker.uselections.core.di.modules.ApplicationModule;
 
 /**
- * @author Sander De Bleecker
+ * @author simulan
  * @version 1.0.0
  * @since 19/05/2017
  */

@@ -6,7 +6,7 @@ import be.sanderdebleecker.uselections.mvp.model.view.OfficialVM;
 
 /**
  * Model for returned data from Google Civic Api
- * Created by Sander De Bleecker on 10/05/2017.
+ * Created by simulan on 10/05/2017.
  */
 public class OfficialsEnvelope {
     //Divisions divisions;

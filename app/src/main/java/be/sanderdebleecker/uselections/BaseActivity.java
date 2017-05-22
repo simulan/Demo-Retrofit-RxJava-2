@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * @author Sander De Bleecker
+ * @author simulan
  * @version 1.0.0
  * @since 19/05/2017
  */

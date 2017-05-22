@@ -6,7 +6,7 @@ import be.sanderdebleecker.uselections.BaseActivity;
 import be.sanderdebleecker.uselections.mvp.model.view.ElectionVM;
 
 /**
- * @author Sander De Bleecker
+ * @author simulan
  * @version 1.0.0
  * @since 19/05/2017
  */

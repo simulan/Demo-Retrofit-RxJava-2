@@ -21,7 +21,7 @@ import io.reactivex.subjects.PublishSubject;
 
 /**
  * Adapter for Officials
- * Created by Sander De Bleecker on 12/05/2017.
+ * Created by simulan on 12/05/2017.
  */
 public class OfficialsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     private final PublishSubject<OfficialVM> onClickOfficial = PublishSubject.create();

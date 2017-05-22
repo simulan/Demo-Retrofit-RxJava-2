@@ -17,7 +17,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * @author Sander De Bleecker
+ * @author simulan
  * @version 1.0.0
  * @since 19/05/2017
  */

@@ -20,7 +20,7 @@ import io.reactivex.subjects.PublishSubject;
  * Initialize with List of Election
  * Bind Clicks with RxObservable from public method getClickObservable
  * <p>
- * Created by Sander De Bleecker on 09/05/2017.
+ * Created by simulan on 09/05/2017.
  */
 
 //todo connectionFailure snackbar notification

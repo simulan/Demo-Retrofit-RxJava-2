@@ -19,7 +19,7 @@ import butterknife.BindView;
 
 /**
  * Activity displaying Officials
- * Created by Sander De Bleecker
+ * Created by simulan
  */
 
 public class OfficialsActivity extends BaseActivity implements OfficialsView {

@@ -1,7 +1,7 @@
 package be.sanderdebleecker.uselections.mvp.model.data;
 
 /**
- * Created by Sander De Bleecker on 15/05/2017.
+ * Created by simulan on 15/05/2017.
  */
 
 public class Official {

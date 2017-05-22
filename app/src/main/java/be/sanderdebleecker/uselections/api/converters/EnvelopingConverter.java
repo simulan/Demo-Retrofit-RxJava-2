@@ -32,7 +32,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * <p>
  * And passing it to the next Converter in chain
  * <p>
- * Created by Sander De Bleecker on 15/05/2017.
+ * Created by simulan on 15/05/2017.
  */
 public class EnvelopingConverter extends Converter.Factory {
     @Retention(RUNTIME)
