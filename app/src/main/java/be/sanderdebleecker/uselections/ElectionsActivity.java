@@ -18,7 +18,6 @@ import be.sanderdebleecker.uselections.mvp.presenter.ElectionsPresenter;
 import be.sanderdebleecker.uselections.mvp.view.ElectionsView;
 import be.sanderdebleecker.uselections.mvp.view.adapters.ElectionsAdapter;
 import butterknife.BindView;
-import io.reactivex.functions.Consumer;
 
 
 public class ElectionsActivity extends BaseActivity implements ElectionsView {
@@ -38,12 +37,7 @@ public class ElectionsActivity extends BaseActivity implements ElectionsView {
         mElectionsAdapter = new ElectionsAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mElectionsAdapter);
-        mElectionsAdapter.getClickObservable().subscribe(new Consumer<ElectionVM>() {
-            @Override
-            public void accept (ElectionVM electionVM) throws Exception {
-                onListClick(electionVM);
-            }
-        });
+        mElectionsAdapter.getClickObservable().subscribe(this::onListClick);
     }
     // dagger2
     @Override

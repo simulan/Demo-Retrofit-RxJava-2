@@ -18,7 +18,6 @@ import be.sanderdebleecker.uselections.mvp.presenter.OfficialsPresenter;
 import be.sanderdebleecker.uselections.mvp.view.OfficialsView;
 import be.sanderdebleecker.uselections.mvp.view.adapters.OfficialsAdapter;
 import butterknife.BindView;
-import io.reactivex.functions.Consumer;
 
 /**
  * Activity displaying Officials
@@ -41,12 +40,7 @@ public class OfficialsActivity extends BaseActivity implements OfficialsView {
         mAdapter = new OfficialsAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
-        mAdapter.getClickObservable().subscribe(new Consumer<OfficialVM>() {
-            @Override
-            public void accept (OfficialVM officialVM) throws Exception {
-                onOfficialsListClick(officialVM);
-            }
-        });
+        mAdapter.getClickObservable().subscribe(this::onOfficialsListClick);
     }
 
     // dagger2

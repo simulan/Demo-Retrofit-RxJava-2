@@ -85,12 +85,7 @@ public class ElectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             electionHolder.txtvElectionName.setText(electionVM.getName());
             electionHolder.txtvElectionDay.setText(electionVM.getElectionDay());
             electionHolder.txtvElectionDivision.setText(electionVM.getOcdDivisionId());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick (View v) {
-                    onClickElection.onNext(electionVM);
-                }
-            });
+            holder.itemView.setOnClickListener(v -> onClickElection.onNext(electionVM));
         }
     }
     @Override
