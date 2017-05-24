@@ -24,7 +24,7 @@ public class CivicApplication extends Application {
     private void initializeApplicationComponent() {
         mApplicationComponent = DaggerApplicationComponent
                 .builder()
-                .applicationModule(new ApplicationModule(this, "https://gist.githubusercontent.com"))
+                .applicationModule(new ApplicationModule(this))
                 .build();
     }
 

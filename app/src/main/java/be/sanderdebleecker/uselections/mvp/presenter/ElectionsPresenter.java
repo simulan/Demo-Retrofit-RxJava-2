@@ -31,11 +31,10 @@ public class ElectionsPresenter extends BasePresenter<ElectionsView> implements 
 
     @Inject
     public ElectionsPresenter() {
-
     }
     public void getElections() {
         if(hasInternetPermission) {
-            getView().onShowDialog("Loading cakes...");
+            getView().onShowDialog("Loading elections");
             subscribe(mApiService.listElections(),this);
         }else{
             getView().onShowToast("Please configure the app's permissions to allow internet");
@@ -59,6 +58,7 @@ public class ElectionsPresenter extends BasePresenter<ElectionsView> implements 
     }
     @Override
     public void onComplete () {
+        mView.onHideDialog();
         responseDisposable.dispose();
     }
 

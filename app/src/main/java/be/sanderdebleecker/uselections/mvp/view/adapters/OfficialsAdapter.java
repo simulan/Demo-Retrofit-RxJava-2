@@ -83,7 +83,12 @@ public class OfficialsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             officialViewHolder.txtvOfficialName.setText(official.getName());
             officialViewHolder.txtvOfficialParty.setText(official.getParty());
             Picasso.with(mContext).load(official.getPhotoUrl()).fit().into(officialViewHolder.cimgvOfficialPhoto);
-            officialViewHolder.itemView.setOnClickListener(l -> onClickOfficial.onNext(official));
+            officialViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick (View v) {
+                    onClickOfficial.onNext(official);
+                }
+            });
         }
     }
     @Override

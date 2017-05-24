@@ -27,7 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
-        ButterKnife.bind(this);
+        mBinder = ButterKnife.bind(this);
         onViewReady(savedInstanceState, getIntent());
     }
 
@@ -38,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+
         mBinder.unbind();
         super.onDestroy();
     }

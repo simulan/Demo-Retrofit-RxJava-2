@@ -1,35 +1,27 @@
 apply plugin: 'com.android.application'
 
-
-
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:$supportLibVersion"
-    compile "com.android.support:recyclerview-v7:$supportLibVersion"
-    compile "com.android.support:gridlayout-v7:$supportLibVersion"
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'com.squareup.picasso:picasso:2.5.0'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:support-annotations:$supportLibVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
+    implementation "com.android.support:gridlayout-v7:$supportLibVersion"
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.picasso:picasso:2.5.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.google.dagger:dagger:2.10'
-    compile 'com.jakewharton:butterknife:8.6.0'
+    implementation 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }
-configurations.all {
-    resolutionStrategy.force "com.android.support:support-annotations:$supportLibVersion"
-}
-
-configurations.compile.dependencies.each { compileDependency ->
-    println "Excluding compile dependency: ${compileDependency.getName()}"
-    configurations.androidTestCompile.dependencies.each { androidTestCompileDependency ->
-        configurations.androidTestCompile.exclude module: "${compileDependency.getName()}"
-    }
-}
 android {
+    android {
+        compileOptions.incremental = false
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion = rootProject.ext.buildToolsVersion
     defaultConfig {
@@ -50,7 +42,12 @@ android {
         exclude 'META-INF/rxjava.properties'
     }
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        targetCompatibility 1.7
+        sourceCompatibility 1.7
+    }
+}
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xmaxerrs" << "2000" // or whatever number you want
     }
 }

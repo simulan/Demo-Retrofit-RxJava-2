@@ -15,7 +15,7 @@ import retrofit2.Retrofit;
  */
 
 @Singleton
-@Component(modules = ApplicationModule.class, dependencies = ApplicationComponent.class)
+@Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
 
     Retrofit exposeRetrofit();

@@ -1,5 +1,6 @@
 package be.sanderdebleecker.uselections.api.converters;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
 import java.lang.reflect.Type;
@@ -56,17 +57,23 @@ public class EnvelopingConverter extends Converter.Factory {
             if(annotation instanceof Election) {
                 Type envType = ElectionsEnvelope.class;
                 final Converter<ResponseBody, ElectionsEnvelope> converterForEnvelope = retrofit.nextResponseBodyConverter(this, envType, annotations);
-                return body -> {
-                    ElectionsEnvelope envelope = converterForEnvelope.convert(body);
-                    return  Observable.fromIterable(envelope.getElections());
+                return new Converter<ResponseBody, Object>() {
+                    @Override
+                    public Object convert (ResponseBody value) throws IOException {
+                        ElectionsEnvelope envelope = converterForEnvelope.convert(value);
+                        return  Observable.fromIterable(envelope.getElections());
+                    }
                 };
             }
             if(annotation instanceof Official) {
                 Type envType = OfficialsEnvelope.class;
                 final Converter<ResponseBody, OfficialsEnvelope> converterForEnvelope = retrofit.nextResponseBodyConverter(this, envType, annotations);
-                return body -> {
-                    OfficialsEnvelope envelope = converterForEnvelope.convert(body);
-                    return Observable.fromIterable(envelope.getOfficials());
+                return new Converter<ResponseBody, Object>() {
+                    @Override
+                    public Object convert (ResponseBody value) throws IOException {
+                        OfficialsEnvelope envelope = converterForEnvelope.convert(value);
+                        return Observable.fromIterable(envelope.getOfficials());
+                    }
                 };
             }
         }

@@ -10,12 +10,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import be.sanderdebleecker.uselections.core.di.components.DaggerOfficialsComponent;
+import be.sanderdebleecker.uselections.core.di.modules.OfficialsModule;
 import be.sanderdebleecker.uselections.mvp.model.view.ElectionVM;
 import be.sanderdebleecker.uselections.mvp.model.view.OfficialVM;
 import be.sanderdebleecker.uselections.mvp.presenter.OfficialsPresenter;
 import be.sanderdebleecker.uselections.mvp.view.OfficialsView;
 import be.sanderdebleecker.uselections.mvp.view.adapters.OfficialsAdapter;
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 
 /**
  * Activity displaying Officials
@@ -38,13 +41,27 @@ public class OfficialsActivity extends BaseActivity implements OfficialsView {
         mAdapter = new OfficialsAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
-        mAdapter.getClickObservable().subscribe(this::onOfficialsListClick);
+        mAdapter.getClickObservable().subscribe(new Consumer<OfficialVM>() {
+            @Override
+            public void accept (OfficialVM officialVM) throws Exception {
+                onOfficialsListClick(officialVM);
+            }
+        });
+    }
+
+    // dagger2
+    @Override
+    protected void resolveDaggerDependency () {
+        DaggerOfficialsComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .officialsModule(new OfficialsModule(this))
+                .build().inject(this);
     }
 
     //interface BaseActivity
     @Override
     protected int getContentView () {
-        return R.id.recyclerOfficials;
+        return R.layout.activity_officials;
     }
 
     //Interface ElectionsView

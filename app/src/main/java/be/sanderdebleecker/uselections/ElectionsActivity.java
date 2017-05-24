@@ -11,11 +11,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import be.sanderdebleecker.uselections.core.di.components.DaggerElectionsComponent;
+import be.sanderdebleecker.uselections.core.di.modules.ElectionsModule;
 import be.sanderdebleecker.uselections.mvp.model.view.ElectionVM;
 import be.sanderdebleecker.uselections.mvp.presenter.ElectionsPresenter;
 import be.sanderdebleecker.uselections.mvp.view.ElectionsView;
 import be.sanderdebleecker.uselections.mvp.view.adapters.ElectionsAdapter;
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 
 
 public class ElectionsActivity extends BaseActivity implements ElectionsView {
@@ -27,6 +30,7 @@ public class ElectionsActivity extends BaseActivity implements ElectionsView {
     @Override
     protected void onViewReady (Bundle savedInstanceState, Intent intent) {
         super.onViewReady(savedInstanceState, intent);
+        mPresenter.requestPermissions();
         initializeAdapter();
         mPresenter.getElections();
     }
@@ -34,7 +38,20 @@ public class ElectionsActivity extends BaseActivity implements ElectionsView {
         mElectionsAdapter = new ElectionsAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mElectionsAdapter);
-        mElectionsAdapter.getClickObservable().subscribe(this::onListClick);
+        mElectionsAdapter.getClickObservable().subscribe(new Consumer<ElectionVM>() {
+            @Override
+            public void accept (ElectionVM electionVM) throws Exception {
+                onListClick(electionVM);
+            }
+        });
+    }
+    // dagger2
+    @Override
+    protected void resolveDaggerDependency () {
+        DaggerElectionsComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .electionsModule(new ElectionsModule(this))
+                .build().inject(this);
     }
 
     // abstract base methods

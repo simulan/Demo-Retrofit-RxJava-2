@@ -18,6 +18,7 @@ public class OfficialsPresenter extends BasePresenter<OfficialsView> implements 
     @Inject protected CivicService mApiService;
     Disposable responseDisposable;
 
+    @Inject
     public OfficialsPresenter () {
     }
     public void getOfficials (String ocdId) {
@@ -45,6 +46,7 @@ public class OfficialsPresenter extends BasePresenter<OfficialsView> implements 
 
     @Override
     public void onComplete () {
+        mView.onHideDialog();
         responseDisposable.dispose();
     }
 }
